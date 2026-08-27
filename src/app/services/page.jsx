@@ -1,5 +1,5 @@
 import Navbar from "../../components/Navbar";
-import ServicesPageContent from "../../pages/Services";
+import ServicesPageContent from "../../views/Services";
 import Footer from "../../components/global/Footer";
 
 export const metadata = {
