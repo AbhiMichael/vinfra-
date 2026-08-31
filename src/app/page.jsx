@@ -15,7 +15,6 @@ import Logo from "../assets/logo1.webp";
 const GLOBAL_STYLES = `
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -145,10 +144,10 @@ const GLOBAL_STYLES = `
         
         .hero-eyebrow {
           font-size: 14px; font-weight: 400; color: var(--steel-light);
-          line-height: 1.6; max-width: 280px; opacity: 0; transform: translateY(15px);
+          line-height: 1.6; max-width: 280px; opacity: 2; transform: translateY(15px);
           transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
         }
-        .loaded .hero-eyebrow { opacity: 1; transform: translateY(0); }
+        .loaded .hero-eyebrow { opacity: 2; transform: translateY(0); }
 
         .premium-stats-wrapper {
           display: flex;
@@ -165,20 +164,19 @@ const GLOBAL_STYLES = `
         .loaded .premium-stats-wrapper { opacity: 1; transform: translateY(0); }
 
         .premium-stat-box {
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: rgba(255, 255, 255, 0);
+          border: 1px solid rgba(255, 255, 255, 0);
           border-radius: 12px;
-          padding: 14px 20px; 
+          padding: 5px 20px; 
           width: 180px; 
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+
           box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
           transition: border-color 0.3s ease, transform 0.3s ease;
         }
         
         .premium-stat-box.top-card { align-self: flex-end; }
         .premium-stat-box.bottom-card { align-self: flex-start; }
-        .premium-stat-box:hover { border-color: rgba(255, 255, 255, 0.25); }
+        .premium-stat-box:hover { border-color: rgba(255, 255, 255, 0); }
 
         .premium-stat-number {
           font-family: var(--font-body);
@@ -232,24 +230,79 @@ const GLOBAL_STYLES = `
         .evolution-header { text-align: center; max-width: 1000px; margin: 0 auto 80px auto; }
         .evolution-title { font-family: var(--font-display); font-size: clamp(50px, 7vw, 96px); font-weight: 800; text-transform: uppercase; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; max-width: 900px; margin-inline: auto; }
         
-        .evolution-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 1px; background: rgba(15,20,24,0.11); border-top: 1px solid rgba(15,20,24,0.15); border-bottom: 1px solid rgba(15,20,24,0.15); margin-top: 40px; }
-        .evo-card { background: var(--steel-bg); padding: 40px 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px; height: 380px; position: relative; }
-        .evo-card.image-box { padding: 0; overflow: hidden; height: 380px; }
-        .evo-card.image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .evolution-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1px;
+          background: rgba(15,20,24,0.11);
+          border-top: 1px solid rgba(15,20,24,0.15);
+          border-bottom: 1px solid rgba(15,20,24,0.15);
+          margin-top: 40px;
+          width: 100%;
+        }
+        .evo-card {
+          background: var(--steel-bg);
+          padding: clamp(18px, 2.2vw, 32px);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: auto;
+          min-height: 0;
+          aspect-ratio: 1 / 1;
+          position: relative;
+          overflow: hidden;
+        }
+        .evo-card.image-box {
+          padding: 0;
+          overflow: hidden;
+          height: auto;
+          min-height: 0;
+          aspect-ratio: 1 / 1;
+        }
+        .evo-card.image-box img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
         .evo-card.image-box:hover img { transform: scale(1.05); }
-        .evo-card.image-box video { width: 125%; height: 100%; object-fit: cover; display: block; margin-left: -25%; }
+        .evo-card.image-box video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: 70% center;
+          display: block;
+        }
         
         .evo-card-orange-dot { position: absolute; top: -4px; left: -4px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; opacity: 0; transition: opacity 0.3s; }
         .evo-card:hover .evo-card-orange-dot { opacity: 1; }
         
-        .evo-card h3 { font-family: var(--font-display); font-size: 28px; font-weight: 500; margin-bottom: 16px; letter-spacing: -0.01em; }
-        .evo-card p { font-size: 15px; line-height: 1.6; color: rgba(15,20,24,0.7); }
-        .evo-icon { width: 36px; height: 36px; opacity: 0.8; margin-top: 40px; stroke-width: 1.2; }
+        .evo-card h3 {
+          font-family: var(--font-display);
+          font-size: clamp(16px, 1.8vw, 24px);
+          font-weight: 600;
+          margin-bottom: clamp(6px, 1vw, 12px);
+          letter-spacing: -0.01em;
+          line-height: 1.2;
+        }
+        .evo-card p {
+          font-size: clamp(11px, 1.05vw, 14px);
+          line-height: 1.5;
+          color: rgba(15,20,24,0.7);
+        }
+        .evo-icon {
+          width: clamp(24px, 2vw, 32px);
+          height: clamp(24px, 2vw, 32px);
+          opacity: 0.8;
+          margin-top: auto;
+          stroke-width: 1.2;
+        }
         
         .evo-flip-container {
           perspective: 1000px;
-          min-height: 380px;
-          height: 380px;
+          height: auto;
+          min-height: 0;
+          aspect-ratio: 1 / 1;
           background: transparent;
         }
         .evo-flip-inner {
@@ -274,31 +327,19 @@ const GLOBAL_STYLES = `
           width: 100%;
           height: 100%;
           object-fit: cover;
+          display: block;
         }
         .evo-flip-back {
           transform: rotateY(180deg);
         }
 
-        /* MacBook Air / small laptops: 4-col → 2-col with taller visible images */
-        @media (max-width: 1280px) {
+        @media (max-width: 1100px) {
           .evolution-grid {
             grid-template-columns: 1fr 1fr;
+            gap: 12px;
           }
-          .evo-card {
-            height: auto;
-            min-height: 320px;
-          }
-          .evo-flip-container {
-            height: auto;
-            min-height: 0;
-            aspect-ratio: 4 / 3;
-          }
-          .evo-card.image-box {
-            height: auto;
-            aspect-ratio: 4 / 3;
-          }
-          .evo-flip-container:hover .evo-flip-inner {
-            transform: rotateY(180deg);
+          .evo-flip-container, .evo-card.image-box, .evo-card {
+            aspect-ratio: 1 / 1;
           }
         }
         .page-stories { 
@@ -954,7 +995,7 @@ const GLOBAL_STYLES = `
           gap: 48px;
         }
         .landing-stat-card {
-          background: rgba(15,20,24,0.7);
+          background: rgba(2, 3, 4, 0);
           border: 1px solid var(--panel-border);
           border-radius: 12px;
           backdrop-filter: blur(10px);
@@ -963,7 +1004,6 @@ const GLOBAL_STYLES = `
           text-align: center;
           transition: background 0.3s ease, border-color 0.3s ease;
         }
-        .landing-stat-card:hover { background: rgba(138,15,15,0.4); }
         .landing-stat-number {
           font-family: 'Montserrat', sans-serif;
           font-size: clamp(48px, 5vw, 64px);
@@ -1036,31 +1076,6 @@ const GLOBAL_STYLES = `
           max-width: 400px;
         }
 
-        .process-item-small {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          color: var(--white);
-          opacity: 0.6;
-          mix-blend-mode: overlay;
-        }
-        .process-icon-small {
-          color: var(--white);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .process-icon-small svg {
-          width: 32px;
-          height: 32px;
-        }
-        .process-name-small {
-          font-family: 'Rubik Glitch', sans-serif;
-          font-weight: 400;
-          font-size: 36px;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
 
         .landing-materials-text {
           position: absolute; top: 15%; left: 5%; width: 35%; max-width: 450px;
@@ -1127,18 +1142,6 @@ const GLOBAL_STYLES = `
           font-weight: 600;
         }
 
-        .process-column-left {
-          flex: 1; display: flex; flex-direction: column; gap: 200px; margin-top: 20vh; align-items: flex-end; text-align: right; transform-origin: top center; padding-right: 12vw;
-        }
-        .process-column-right {
-          flex: 1; display: flex; flex-direction: column; gap: 200px; margin-top: 20vh; align-items: flex-start; text-align: left; transform-origin: top center; padding-left: 12vw;
-        }
-        .process-item-small-left {
-          flex-direction: row-reverse;
-        }
-        .process-item-small-right {
-          flex-direction: row;
-        }
 
         /* =============================================
            MOBILE RESPONSIVENESS – Homepage
@@ -1185,14 +1188,6 @@ const GLOBAL_STYLES = `
         }
         @media (max-width: 768px) {
           .scroll-container { height: calc(5850px + 100vh) !important; }
-          .process-overlay { display: none !important; }
-          .process-column-left, .process-column-right {
-            padding-right: 0 !important; padding-left: 0 !important; gap: 40px !important; margin-top: 10vh !important; align-items: center !important; text-align: center !important;
-          }
-          .process-item-small-left, .process-item-small-right {
-            margin-right: 0 !important; margin-left: 0 !important;
-            flex-direction: column !important;
-          }
           .material-overlay { justify-content: flex-start !important; padding-top: 12vh !important; align-items: flex-start !important; padding-left: 5vw !important; padding-right: 5vw !important; text-align: left !important; }
           .landing-materials-text, .landing-materials-layers { padding: 0 !important; align-items: flex-start !important; text-align: left !important; width: 100% !important; }
           .landing-materials-layers { margin-top: 5px !important; }
@@ -1219,11 +1214,11 @@ const GLOBAL_STYLES = `
           .landing-stat-label { font-size: 9px; letter-spacing: 0.02em; }
           .page-evolution { padding: 30px 16px; }
           .evolution-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
-          .evo-flip-container { height: auto !important; min-height: 0 !important; aspect-ratio: 4 / 3 !important; }
+          .evo-flip-container { height: auto !important; min-height: 0 !important; aspect-ratio: 1 / 1 !important; }
           .evo-flip-container:hover .evo-flip-inner { transform: none !important; }
           body.mobile-scroll-stopped .evo-flip-container .evo-flip-inner { transform: rotateY(180deg) !important; }
-          .evo-card { min-height: 0 !important; height: auto !important; padding: 20px 14px !important; }
-          .evo-card.image-box { height: auto !important; aspect-ratio: 4 / 3 !important; }
+          .evo-card { min-height: 0 !important; height: auto !important; padding: 14px 10px !important; }
+          .evo-card.image-box { height: auto !important; aspect-ratio: 1 / 1 !important; }
           .evolution-title { font-size: 22px !important; margin-bottom: 16px !important; }
           .evo-card h3 { font-size: 16px !important; margin-bottom: 6px !important; }
           .evo-card p { font-size: 12px !important; line-height: 1.4 !important; }
@@ -1386,24 +1381,6 @@ const SERVICES = [
   },
 ];
 
-const IconCrane = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <polygon points="12 4 2 12 22 12 12 4" /> <line x1="12" y1="12" x2="12" y2="20" /> <rect x="8" y="20" width="8" height="2" /> </svg>);
-const IconNewRoof = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /> <polyline points="9 22 9 12 15 12 15 22" /> </svg>);
-const IconRepair = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <circle cx="12" cy="12" r="10" /> <path d="M12 8v4l3 3" /> <path d="M8 8L12 4l4 4" /> </svg>);
-const IconFabrication = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <rect x="4" y="6" width="16" height="12" rx="1" /> <path d="M8 6V4h8v2" /> <line x1="8" y1="10" x2="16" y2="10" /> <line x1="8" y1="14" x2="12" y2="14" /> </svg>);
-const IconCoil = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <circle cx="12" cy="12" r="8" /> <path d="M4 4l4 4M20 4l-4 4M4 20l4-4M20 20l-4-4" /> </svg>);
-const IconReplace = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <path d="M21 2v6h-6" /> <path d="M3 12a9 9 0 0 1 15-6.7L21 8" /> <path d="M3 22v-6h6" /> <path d="M21 12a9 9 0 0 1-15 6.7L3 16" /> </svg>);
-const IconFlashing = () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"> <path d="M12 2v4M12 18v4M4 12H2M22 12h-2" /> <circle cx="12" cy="12" r="4" /> <path d="M7 5l2 2M17 7l2-2" /> </svg>);
-
-const processLeft = [
-  { name: "Crane setup & Installation", icon: <IconCrane /> },
-  { name: "Repair and Inspection", icon: <IconRepair /> },
-  { name: "Panel Fabrication", icon: <IconFabrication /> }
-];
-const processRight = [
-  { name: "Coil Loading", icon: <IconCoil /> },
-  { name: "Roof Replacement", icon: <IconReplace /> },
-  { name: "Roof Flashing", icon: <IconFlashing /> }
-];
 
 const coatingLayers = [
   "Top Coat* paint with Super Durable Polyester Resin (Nominal 20µm)**",
@@ -1472,9 +1449,6 @@ export default function HomePage() {
   const benefitsTopRef = useRef(null);
   const benefitsBottomRef = useRef(null);
   const panIndiaUIRef = useRef(null);
-  const processUIRef = useRef(null);
-  const processLeftRef = useRef(null);
-  const processRightRef = useRef(null);
   const materialUIRef = useRef(null);
   const mobileCoverRef = useRef(null);
   const mobileTimeoutRef = useRef(null);
@@ -1716,17 +1690,6 @@ export default function HomePage() {
           panIndiaUIRef.current.style.pointerEvents = isPanIndiaVisible ? "auto" : "none";
         }
 
-        if (processUIRef.current && processLeftRef.current && processRightRef.current) {
-          if (frameIndex >= 501 && frameIndex <= 665) {
-            processUIRef.current.style.opacity = "1";
-            const progress = (frameIndex - 501) / (665 - 501);
-            const translateY = 100 - (progress * 200);
-            processLeftRef.current.style.transform = `rotateX(-10deg) translateY(${translateY}vh)`;
-            processRightRef.current.style.transform = `rotateX(-10deg) translateY(${translateY}vh)`;
-          } else {
-            processUIRef.current.style.opacity = "0";
-          }
-        }
 
         if (materialUIRef.current) {
           const isMaterialVisible = frameIndex >= 673 && frameIndex < 800;
@@ -1970,48 +1933,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div
-              ref={processUIRef}
-              className="process-overlay"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                pointerEvents: "none",
-                zIndex: 5,
-                overflow: "hidden",
-                opacity: 0,
-                display: "flex",
-                justifyContent: "center",
-                padding: "0",
-                perspective: "1000px"
-              }}
-            >
-              <div
-                ref={processLeftRef}
-                className="process-column process-column-left"
-              >
-                {processLeft.map((p, i) => (
-                  <div key={i} className="process-item-small process-item-small-left" style={{ marginRight: `${(2 - i) * 120}px` }}>
-                    <div className="process-icon-small">{p.icon}</div>
-                    <div className="process-name-small">{p.name}</div>
-                  </div>
-                ))}
-              </div>
-              <div
-                ref={processRightRef}
-                className="process-column process-column-right"
-              >
-                {processRight.map((p, i) => (
-                  <div key={i} className="process-item-small process-item-small-right" style={{ marginLeft: `${(2 - i) * 120}px` }}>
-                    <div className="process-icon-small">{p.icon}</div>
-                    <div className="process-name-small">{p.name}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             <div
               ref={materialUIRef}
@@ -2042,13 +1963,13 @@ export default function HomePage() {
               </div>
 
               <div className="landing-materials-layers">
-                <div className="landing-layers-list">
+                {/* <div className="landing-layers-list">
                   {coatingLayers.map((layer, idx) => (
                     <div key={idx} className="landing-layer-item">
                       {layer}
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
