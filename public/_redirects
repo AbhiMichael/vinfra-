@@ -1,0 +1,5 @@
+# Cloudflare Pages Redirects
+# Format: <source> <destination> [code]
+
+# Example canonical www to apex or vice versa (if desired):
+# https://www.vinfraprojects.com/* https://vinfraprojects.com/:splat 301!

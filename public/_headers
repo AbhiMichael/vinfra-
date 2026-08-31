@@ -1,0 +1,39 @@
+# Global security and performance headers for Cloudflare Pages
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Cache Next.js static assets permanently (immutable chunks)
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache media assets (images, videos, fonts)
+/*.webp
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/*.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/*.jpg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/*.jpeg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/*.svg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/*.mp4
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/set1/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/set2/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+/set3/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# HTML pages - revalidate to guarantee immediate deployment updates
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
