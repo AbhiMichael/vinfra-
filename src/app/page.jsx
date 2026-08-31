@@ -368,7 +368,7 @@ const GLOBAL_STYLES = `
         .app-header h2 span { color: var(--steel-light); font-weight: 300; }
         
         .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; z-index: 5; }
-        .app-card { background: rgba(233,238,242,0.02); border: 1px solid var(--panel-border); border-radius: 8px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .app-card { background: rgba(233,238,242,0.02); border: 1px solid var(--panel-border); border-radius: 1px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .app-card:hover { border-color: var(--white); transform: translateY(-4px); background: rgba(233,238,242,0.04); }
         .app-img-wrapper { height: 260px; overflow: hidden; position: relative; background: #161d22; }
         .app-img-wrapper img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.6s ease; }

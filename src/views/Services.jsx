@@ -539,12 +539,12 @@ export default function Services() {
         .services-page {
           background: var(--dark);
           min-height: 100vh;
-          padding-top: 100px;
+          padding-top: 0;
         }
 
         /* Hero Section */
         .services-hero {
-          padding: 60px 48px 80px 48px;
+          padding: 160px 48px 80px 48px;
           text-align: center;
         }
         .services-badge {
@@ -590,7 +590,7 @@ export default function Services() {
           border: 1px solid var(--panel-border);
           color: var(--steel-light);
           padding: 12px 28px;
-          border-radius: 50px;
+          border-radius: 20px;
           font-size: 14px;
           font-weight: 600;
           cursor: pointer;
@@ -635,9 +635,9 @@ export default function Services() {
           margin: 0 auto;
         }
         .certified-card {
-          background: rgba(233,238,242,0.03);
-          border: 1px solid var(--panel-border);
-          border-radius: 20px;
+          background: var(--dark);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
           padding: 48px;
           margin-top: 40px;
         }
@@ -657,32 +657,30 @@ export default function Services() {
         /* Benefits Grid */
         .benefits-section {
           padding: 80px 48px;
-          background: rgba(138,15,15,0.03);
-          border-top: 1px solid var(--panel-border);
-          border-bottom: 1px solid var(--panel-border);
+          background: var(--dark);
         }
         .benefits-header { text-align: center; margin-bottom: 60px; }
         .benefits-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 24px;
+          gap: 1px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          overflow: hidden;
         }
         .benefit-card {
-          background: rgba(233,238,242,0.02);
-          border: 1px solid var(--panel-border);
-          border-radius: 16px;
-          padding: 32px 24px;
+          background: var(--dark);
+          padding: 40px 24px;
           text-align: center;
-          transition: all 0.3s ease;
+          transition: background 0.3s ease;
         }
         .benefit-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--orange);
-          background: rgba(138,15,15,0.05);
+          background: rgba(255, 255, 255, 0.03);
         }
         .benefit-icon svg {
-          width: 48px;
-          height: 48px;
+          width: 44px;
+          height: 44px;
           color: var(--orange);
           margin-bottom: 16px;
           stroke: currentColor;
@@ -699,27 +697,27 @@ export default function Services() {
         .benefit-desc { font-size: 13px; color: var(--steel-light); line-height: 1.5; }
 
         /* Process Section */
-        .process-section { padding: 80px 48px; }
+        .process-section { padding: 80px 48px; background: var(--dark); }
         .process-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 32px;
+          gap: 1px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          overflow: hidden;
         }
         .process-card {
-          background: rgba(233,238,242,0.02);
-          border: 1px solid var(--panel-border);
-          border-radius: 16px;
-          padding: 32px;
-          transition: all 0.3s ease;
+          background: var(--dark);
+          padding: 40px 32px;
+          transition: background 0.3s ease;
         }
         .process-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--orange);
-          background: rgba(138,15,15,0.05);
+          background: rgba(255, 255, 255, 0.03);
         }
         .process-icon svg {
-          width: 48px;
-          height: 48px;
+          width: 44px;
+          height: 44px;
           color: var(--orange);
           margin-bottom: 20px;
           stroke: currentColor;
@@ -738,26 +736,25 @@ export default function Services() {
         /* Services Detail */
         .services-detail-section {
           padding: 80px 48px;
-          background: rgba(138,15,15,0.02);
-          border-top: 1px solid var(--panel-border);
+          background: var(--dark);
         }
         .services-detail-header { text-align: center; margin-bottom: 60px; }
         .services-detail-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 32px;
+          gap: 1px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          overflow: hidden;
         }
         .service-detail-card {
-          background: rgba(233,238,242,0.02);
-          border: 1px solid var(--panel-border);
-          border-radius: 16px;
-          padding: 32px;
-          transition: all 0.3s ease;
+          background: var(--dark);
+          padding: 40px 32px;
+          transition: background 0.3s ease;
         }
         .service-detail-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--orange);
-          background: rgba(138,15,15,0.08);
+          background: rgba(255, 255, 255, 0.03);
         }
         .service-detail-icon svg {
           width: 48px;
@@ -794,7 +791,7 @@ export default function Services() {
           padding: 32px;
           background: rgba(255,255,255,0.1);
           backdrop-filter: blur(10px);
-          border-radius: 16px;
+          border-radius: 2px;
           transition: all 0.3s ease;
         }
         .stat-card:hover {
@@ -831,7 +828,9 @@ export default function Services() {
           .process-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
-          .services-hero,
+          .services-hero {
+            padding: 120px 16px 40px 16px;
+          }
           .services-tabs,
           .overview-section,
           .benefits-section,
@@ -845,10 +844,10 @@ export default function Services() {
           .stats-grid,
           .process-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 1px;
           }
           .benefit-card, .process-card, .service-detail-card, .stat-card {
-            padding: 16px 12px;
+            padding: 24px 14px;
           }
           .benefit-icon svg, .process-icon svg, .service-detail-icon svg {
             width: 32px;

@@ -220,17 +220,42 @@ export default function About() {
         .about-page {
           background: var(--dark);
           min-height: 100vh;
-          padding-top: 100px;
+          padding-top: 0;
         }
 
         .about-hero {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
-          padding: 60px 48px 100px 48px;
+          position: relative;
+          display: flex;
           align-items: center;
+          min-height: 80vh;
+          padding: 160px 64px 120px 64px;
+          overflow: hidden;
         }
-        .about-hero-content { max-width: 600px; }
+        .about-hero-video-wrapper {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          z-index: 1;
+        }
+        .about-hero-video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+        }
+        .about-hero-video-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(15, 20, 24, 0.59) 0%, rgba(15, 20, 24, 0.39) 50%, rgba(15, 20, 24, 0.51) 100%);
+        }
+        .about-hero-content {
+          position: relative;
+          z-index: 2;
+          max-width: 680px;
+        }
         .about-hero-badge {
           font-size: 12px;
           font-weight: 600;
@@ -259,30 +284,6 @@ export default function About() {
           display: flex;
           gap: 20px;
           align-items: center;
-        }
-        .about-hero-image {
-          position: relative;
-          border-radius: 12px;
-          overflow: hidden;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          background: transparent;
-          max-width: 100%;
-          width: fit-content;
-        }
-        .about-hero-image img {
-          display: block;
-          max-width: 100%;
-          height: auto;
-          object-fit: contain;
-          transition: transform 0.7s ease;
-        }
-        .about-hero-image:hover img { transform: scale(1.05); }
-        .hero-image-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(138,15,15,0.1) 0%, rgba(0,0,0,0.3) 100%);
         }
 
         .about-mission {
@@ -327,7 +328,7 @@ export default function About() {
         }
         .mission-grid-img {
           overflow: hidden;
-          border-radius: 8px;
+          border-radius: 1px;
           background: rgba(15,20,24,0.2);
         }
         .mission-grid-img img {
@@ -349,7 +350,7 @@ export default function About() {
           gap: 1px;
           background: var(--panel-border);
           border: 1px solid var(--panel-border);
-          border-radius: 12px;
+          border-radius: 1px;
           overflow: hidden;
         }
         .stat-card {
@@ -471,7 +472,7 @@ export default function About() {
           gap: 1px;
           background: var(--panel-border);
           border: 1px solid var(--panel-border);
-          border-radius: 12px;
+          border-radius: 1px;
           overflow: hidden;
         }
         .expertise-card {
@@ -514,7 +515,7 @@ export default function About() {
         .service-detail-card {
           background: rgba(15,20,24,0.05);
           padding: 48px 40px;
-          border-radius: 12px;
+          border-radius: 1px;
           text-align: center;
           transition: all 0.3s ease;
         }
@@ -870,8 +871,8 @@ export default function About() {
         .mission-cta:hover { opacity: 0.88; }
 
         @media (max-width: 1024px) {
-          .about-hero, .mission-grid { grid-template-columns: 1fr; gap: 40px; }
-          .about-hero { padding: 40px 32px 80px 32px; }
+          .mission-grid { grid-template-columns: 1fr; gap: 40px; }
+          .about-hero { min-height: 65vh; padding: 140px 32px 80px 32px; }
           .about-mission { padding: 60px 32px; }
           .about-stats { padding: 60px 32px; }
           .about-news { padding: 60px 32px; }
@@ -893,7 +894,8 @@ export default function About() {
             padding: 60px 20px;
           }
           .about-hero {
-            padding: 40px 20px 60px 20px;
+            min-height: auto;
+            padding: 120px 20px 80px 20px;
           }
           .expertise-grid { grid-template-columns: repeat(4, 1fr); gap: 1px; }
           .expertise-card { padding: 16px 6px; }
@@ -902,8 +904,6 @@ export default function About() {
           .services-detail-grid { grid-template-columns: 1fr; }
           .about-hero-buttons { flex-direction: column; align-items: flex-start; }
           .mission-grid-images { height: 280px; }
-          .about-hero-image { width: 100%; }
-          .about-hero-image img { max-height: 300px; width: 100%; object-fit: cover; }
           .image-card { height: 220px; }
           .tiles-grid { grid-template-columns: 1fr; }
           .tile-large .tile-title { font-size: 24px; }
@@ -915,6 +915,9 @@ export default function About() {
           .about-news-tiles {
             padding: 48px 16px;
           }
+          .about-hero {
+            padding: 110px 16px 64px 16px;
+          }
           .expertise-grid { grid-template-columns: repeat(2, 1fr); }
           .expertise-card { padding: 20px 12px; }
           .expertise-icon { width: 36px; height: 36px; }
@@ -923,13 +926,25 @@ export default function About() {
           .stat-card { padding: 32px 16px; }
           .stat-number { font-size: 36px !important; }
           .mission-grid-images { height: 220px; }
-          .about-hero-image img { max-height: 220px; }
         }
       `}</style>
 
       <div className="about-page">
-        {/* Hero Section (unchanged) */}
+        {/* Hero Section with Full-Width Background Video */}
         <section className="about-hero reveal-group">
+          <div className="about-hero-video-wrapper">
+            <video
+              src="/aboutcover.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="about-hero-video"
+            />
+            <div className="about-hero-video-overlay" />
+          </div>
+
           <div className="about-hero-content">
             <div className="about-hero-badge">About Us</div>
             <h1 className="about-hero-title">
@@ -945,14 +960,7 @@ export default function About() {
               <Link href="/projects">
                 <button className="mission-cta">Our Works →</button>
               </Link>
-              {/* <button className="bracket-btn">
-                <span className="arrow">→</span>
-              </button> */}
             </div>
-          </div>
-          <div className="about-hero-image">
-            <img src="/about.webp" alt="Vinfra Roofing Excellence" />
-            <div className="hero-image-overlay"></div>
           </div>
         </section>
 

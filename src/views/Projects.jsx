@@ -244,12 +244,12 @@ export default function Projects() {
         .projects-page {
           background: var(--dark);
           min-height: 100vh;
-          padding-top: 100px;
+          padding-top: 0;
         }
 
         /* Hero Section */
         .projects-hero {
-          padding: 60px 48px 100px 48px;
+          padding: 160px 48px 100px 48px;
           text-align: center;
           position: relative;
           overflow: hidden;
@@ -325,7 +325,7 @@ export default function Projects() {
           color: var(--white);
           border: none;
           padding: 14px 32px;
-          border-radius: 50px;
+          border-radius: 2px;
           font-family: var(--font-display);
           font-size: 14px;
           font-weight: 600;
@@ -414,7 +414,7 @@ export default function Projects() {
 
         .project-card {
           position: relative;
-          border-radius: 16px;
+          border-radius: 2px;
           overflow: hidden;
           background: rgba(233,238,242,0.02);
           border: 1px solid rgba(233,238,242,0.1);
@@ -470,7 +470,7 @@ export default function Projects() {
           background: var(--orange);
           color: var(--white);
           padding: 6px 14px;
-          border-radius: 20px;
+          border-radius: 2px;
           font-size: 11px;
           font-weight: 600;
           text-transform: uppercase;
@@ -536,7 +536,7 @@ export default function Projects() {
           max-height: 90vh;
           background: rgba(15,20,24,0.95);
           backdrop-filter: blur(10px);
-          border-radius: 20px;
+          border-radius: 2px;
           overflow: hidden;
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -768,7 +768,9 @@ export default function Projects() {
         }
 
         @media (max-width: 768px) {
-          .projects-hero,
+          .projects-hero {
+            padding: 120px 20px 40px 20px;
+          }
           .projects-filter,
           .projects-grid-section,
           .projects-stats,
