@@ -934,7 +934,7 @@ export default function About() {
         <section className="about-hero reveal-group">
           <div className="about-hero-video-wrapper">
             <video
-              src="/aboutcover.mp4"
+              src="/about.mp4"
               autoPlay
               loop
               muted

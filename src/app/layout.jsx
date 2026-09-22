@@ -25,7 +25,6 @@ export const metadata = {
 };
 
 import WhatsAppChat from "../components/WhatsAppChat";
-import LoadingScreen from "../components/LoadingScreen";
 
 export default function RootLayout({ children }) {
   return (
@@ -33,7 +32,6 @@ export default function RootLayout({ children }) {
       <head>
       </head>
       <body>
-        <LoadingScreen />
         {children}
         <WhatsAppChat />
       </body>
