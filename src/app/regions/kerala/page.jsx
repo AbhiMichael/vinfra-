@@ -1,4 +1,5 @@
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/global/Footer";
 
 export const metadata = {
   title: "Top Trussless Roofing in Kerala | Vinfra Projects",
@@ -61,6 +62,7 @@ export default function KeralaPage() {
           </p>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

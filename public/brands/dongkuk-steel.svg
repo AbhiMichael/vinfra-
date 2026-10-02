@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 80" width="100%" height="100%" fill="none">
+  <!-- DONGKUK STEEL LOGO -->
+  <!-- Stylized D with left center notch -->
+  <path d="M 12 12 L 40 12 C 54 12 64 21 64 40 C 64 59 54 68 40 68 L 12 68 L 12 47 L 22 47 L 22 33 L 12 33 Z M 26 24 L 26 56 L 39 56 C 47 56 50 50 50 40 C 50 30 47 24 39 24 Z" fill="#0C2340" />
+  
+  <!-- Red lower-left diagonal bar of K -->
+  <path d="M 44 68 L 61 68 L 86 42 L 69 42 Z" fill="#D71920" />
+  <!-- Navy upper-left diagonal bar of K -->
+  <path d="M 69 38 L 86 38 L 61 12 L 44 12 Z" fill="#0C2340" />
+  <!-- Right chevron arms of K -->
+  <path d="M 88 12 L 107 12 L 80 40 L 107 68 L 88 68 L 69 48 L 77 40 Z" fill="#0C2340" />
+  
+  <!-- Text: DONGKUK STEEL -->
+  <text x="122" y="56" font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" fill="#0C2340" letter-spacing="-0.8">DONGKUK</text>
+  <text x="390" y="56" font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="300" fill="#0C2340" letter-spacing="0.5">STEEL</text>
+</svg>

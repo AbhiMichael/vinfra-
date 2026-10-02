@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import ContactFooter from "../components/ContactFooter";
 
 export default function Projects() {
   const [filter, setFilter] = useState("all");
@@ -13,7 +14,7 @@ export default function Projects() {
     triggerOnce: true,
   });
 
-  // Project data (unchanged)
+  // Project data (all 10 projects preserved)
   const projects = [
     {
       id: 1,
@@ -240,633 +241,824 @@ export default function Projects() {
   return (
     <>
       <style>{`
-        /* Projects Page Styles */
-        .projects-page {
-          background: var(--dark);
+        /* Premium Light Theme Projects Page */
+        .projects-light-page {
+          background-color: #F8FAFC;
+          color: #0F172A;
           min-height: 100vh;
-          padding-top: 0;
+          padding-top: 100px;
+          position: relative;
         }
 
         /* Hero Section */
         .projects-hero {
-          padding: 160px 48px 100px 48px;
+          padding: 70px 48px 60px 48px;
           text-align: center;
           position: relative;
-          overflow: hidden;
+          background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F1F5F9 70%, #F8FAFC 100%);
+          border-bottom: 1px solid #E2E8F0;
         }
 
-        .projects-hero::before {
-          content: "";
+        .projects-hero-grid-bg {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(circle at 30% 50%, rgba(233,238,242,0.05), transparent);
+          inset: 0;
+          background-image: 
+            linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
+          mask-image: radial-gradient(ellipse at 50% 30%, black 40%, transparent 80%);
           pointer-events: none;
         }
 
+        .projects-hero-inner {
+          position: relative;
+          z-index: 2;
+          max-width: 900px;
+          margin: 0 auto;
+        }
+
         .projects-badge {
-          font-size: 12px;
-          font-weight: 600;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          color: #0F172A;
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: var(--orange);
-          margin-bottom: 20px;
-          display: inline-block;
+          letter-spacing: 0.18em;
+          padding: 6px 18px;
+          border-radius: 50px;
+          margin-bottom: 24px;
+          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+
+        .projects-badge-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #B91C1C;
+          box-shadow: 0 0 8px rgba(185, 28, 28, 0.6);
         }
 
         .projects-title {
           font-family: var(--font-display);
-          font-size: clamp(48px, 6vw, 84px);
-          font-weight: 600;
-          letter-spacing: -0.02em;
-          color: var(--white);
-          margin-bottom: 24px;
+          font-size: clamp(38px, 5.5vw, 68px);
+          font-weight: 800;
+          line-height: 1.12;
+          letter-spacing: -0.03em;
+          color: #0F172A;
+          margin-bottom: 22px;
         }
 
-        .projects-title span {
-          color: var(--orange);
+        .projects-title .accent-red {
+          color: #B91C1C;
           position: relative;
           display: inline-block;
         }
 
-        .projects-title span::after {
-          content: '';
-          position: absolute;
-          bottom: -10px;
-          left: 0;
-          width: 100%;
-          height: 3px;
-          background: var(--orange);
-          transform: scaleX(0);
-          transform-origin: right;
-          transition: transform 0.5s ease;
-        }
-
-        .projects-title span:hover::after {
-          transform: scaleX(1);
-          transform-origin: left;
-        }
-
         .projects-subtitle {
-          font-size: 18px;
-          color: var(--steel-light);
-          max-width: 600px;
-          margin: 0 auto 40px auto;
-          line-height: 1.6;
+          font-size: 17px;
+          color: #475569;
+          max-width: 640px;
+          margin: 0 auto 36px auto;
+          line-height: 1.65;
         }
 
-        .projects-cta {
+        .projects-hero-actions {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          flex-wrap: wrap;
+        }
+
+        .projects-cta-primary {
           display: inline-flex;
           align-items: center;
-          gap: 12px;
-          background: var(--orange);
-          color: var(--white);
+          gap: 10px;
+          background: #B91C1C;
+          color: #FFFFFF;
           border: none;
-          padding: 14px 32px;
-          border-radius: 2px;
+          padding: 13px 30px;
+          border-radius: 50px;
+          font-family: var(--font-display);
+          font-size: 14px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 8px 20px -4px rgba(185, 28, 28, 0.35);
+        }
+
+        .projects-cta-primary:hover {
+          background: #991B1B;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 26px -4px rgba(185, 28, 28, 0.45);
+        }
+
+        .projects-cta-secondary {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #FFFFFF;
+          color: #0F172A;
+          border: 1px solid #CBD5E1;
+          padding: 13px 26px;
+          border-radius: 50px;
           font-family: var(--font-display);
           font-size: 14px;
           font-weight: 600;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
+          text-decoration: none;
         }
 
-        .projects-cta:hover {
+        .projects-cta-secondary:hover {
+          background: #F1F5F9;
+          border-color: #94A3B8;
+          color: #B91C1C;
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(138,15,15,0.3);
         }
 
-        /* Filter Section - Updated with rgba(233,238,242,0.5) theme */
-        .projects-filter {
-          padding: 20px 48px 40px 48px;
-          border-bottom: 1px solid var(--panel-border);
-          position: relative;
-          background: rgba(233,238,242,0.03);
-          backdrop-filter: blur(12px);
+        /* Filter Toolbar */
+        .projects-filter-bar {
+          position: sticky;
+          top: 86px;
+          z-index: 40;
+          padding: 16px 24px;
+          background: rgba(255, 255, 255, 0.88);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid #E2E8F0;
+          box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
         }
 
         .filter-container {
           display: flex;
           justify-content: center;
-          gap: 16px;
+          align-items: center;
+          gap: 10px;
           flex-wrap: wrap;
+          max-width: 1200px;
+          margin: 0 auto;
         }
 
         .filter-btn {
-          background: transparent;
-          border: 1px solid rgba(233,238,242,0.2);
-          color: var(--steel-light);
-          padding: 10px 24px;
+          background: #F1F5F9;
+          border: 1px solid #E2E8F0;
+          color: #475569;
+          padding: 9px 20px;
           border-radius: 50px;
-          font-size: 14px;
-          font-weight: 500;
+          font-family: var(--font-display);
+          font-size: 13px;
+          font-weight: 600;
           cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .filter-btn::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: var(--orange);
-          transition: left 0.3s ease;
-          z-index: -1;
+          transition: all 0.25s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
         }
 
         .filter-btn:hover {
-          border-color: var(--orange);
-          color: var(--white);
-        }
-
-        .filter-btn:hover::before {
-          left: 0;
+          background: #FFFFFF;
+          color: #0F172A;
+          border-color: #CBD5E1;
+          transform: translateY(-1px);
         }
 
         .filter-btn.active {
-          background: var(--orange);
-          border-color: var(--orange);
-          color: var(--white);
+          background: #0F172A;
+          border-color: #0F172A;
+          color: #FFFFFF;
+          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
         }
 
         .filter-count {
-          margin-left: 8px;
-          font-size: 12px;
-          opacity: 0.7;
+          display: inline-block;
+          font-size: 11px;
+          font-weight: 700;
+          padding: 2px 7px;
+          border-radius: 20px;
+          background: rgba(15, 23, 42, 0.08);
+          color: inherit;
         }
 
-        /* Projects Grid */
+        .filter-btn.active .filter-count {
+          background: #B91C1C;
+          color: #FFFFFF;
+        }
+
+        /* Projects Grid Section */
         .projects-grid-section {
-          padding: 60px 48px;
+          padding: 56px 48px 80px 48px;
+          max-width: 1380px;
+          margin: 0 auto;
+        }
+
+        .projects-count-bar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 28px;
+          font-size: 14px;
+          color: #64748B;
+        }
+
+        .projects-count-bar strong {
+          color: #0F172A;
         }
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-          gap: 32px;
+          grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+          gap: 28px;
         }
 
+        /* Project Card */
         .project-card {
-          position: relative;
-          border-radius: 2px;
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 18px;
           overflow: hidden;
-          background: rgba(233,238,242,0.02);
-          border: 1px solid rgba(233,238,242,0.1);
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
           cursor: pointer;
+          display: flex;
+          flex-direction: column;
         }
 
         .project-card:hover {
-          transform: translateY(-8px);
-          border-color: rgba(233,238,242,0.5);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+          transform: translateY(-6px);
+          border-color: #CBD5E1;
+          box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(185, 28, 28, 0.1);
         }
 
         .project-image-wrapper {
           position: relative;
           overflow: hidden;
-          height: 300px;
+          height: 250px;
+          background: #E2E8F0;
         }
 
         .project-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .project-card:hover .project-image {
-          transform: scale(1.05);
+          transform: scale(1.06);
+        }
+
+        .project-category-badge {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: rgba(15, 23, 42, 0.85);
+          backdrop-filter: blur(8px);
+          color: #FFFFFF;
+          padding: 5px 12px;
+          border-radius: 50px;
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          z-index: 2;
+          border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .project-overlay {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(233,238,242,0.1));
+          inset: 0;
+          background: linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 65%);
           opacity: 0;
           transition: opacity 0.3s ease;
           display: flex;
           align-items: flex-end;
-          padding: 24px;
+          padding: 20px;
         }
 
         .project-card:hover .project-overlay {
           opacity: 1;
         }
 
-        .project-category {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          background: var(--orange);
-          color: var(--white);
-          padding: 6px 14px;
-          border-radius: 2px;
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          z-index: 2;
+        .project-view-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: #B91C1C;
+          color: #FFFFFF;
+          border: none;
+          padding: 9px 18px;
+          border-radius: 50px;
+          font-family: var(--font-display);
+          font-size: 12px;
+          font-weight: 700;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .project-info {
-          padding: 24px;
+          padding: 22px 24px 24px;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
         }
 
         .project-title {
           font-family: var(--font-display);
-          font-size: 22px;
-          font-weight: 600;
-          color: var(--white);
-          margin-bottom: 8px;
-          transition: color 0.3s ease;
+          font-size: 21px;
+          font-weight: 700;
+          color: #0F172A;
+          margin-bottom: 14px;
+          line-height: 1.3;
+          transition: color 0.25s ease;
         }
 
         .project-card:hover .project-title {
-          color: var(--orange);
+          color: #B91C1C;
         }
 
-        .project-meta {
+        .project-meta-pills {
           display: flex;
-          gap: 16px;
-          margin-top: 12px;
-          font-size: 13px;
-          color: var(--steel-light);
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: auto;
+          padding-top: 14px;
+          border-top: 1px solid #F1F5F9;
         }
 
-        .project-meta span {
-          display: flex;
+        .project-meta-tag {
+          display: inline-flex;
           align-items: center;
-          gap: 6px;
+          gap: 5px;
+          background: #F8FAFC;
+          border: 1px solid #E2E8F0;
+          color: #475569;
+          font-size: 12px;
+          font-weight: 500;
+          padding: 4px 10px;
+          border-radius: 6px;
         }
 
-        /* Modal - Updated with rgba(233,238,242,0.5) theme */
-        .project-modal {
-          position: fixed;
+        /* Stats Section */
+        .projects-stats-strip {
+          padding: 72px 48px;
+          background: #F1F5F9;
+          border-top: 1px solid #E2E8F0;
+          border-bottom: 1px solid #E2E8F0;
+        }
+
+        .stats-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .stats-header-tag {
+          text-align: center;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: #B91C1C;
+          margin-bottom: 10px;
+        }
+
+        .stats-header-title {
+          text-align: center;
+          font-family: var(--font-display);
+          font-size: 28px;
+          font-weight: 800;
+          color: #0F172A;
+          margin-bottom: 40px;
+        }
+
+        .stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+
+        .stat-card {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 16px;
+          padding: 32px 24px;
+          text-align: center;
+          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .stat-card::before {
+          content: "";
+          position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          bottom: 0;
-          background: rgba(0,0,0,0.95);
+          height: 3px;
+          background: #B91C1C;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+          transform: translateY(-4px);
+          border-color: #CBD5E1;
+          box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08);
+        }
+
+        .stat-card:hover::before {
+          opacity: 1;
+        }
+
+        .stat-number {
+          font-family: var(--font-display);
+          font-size: 50px;
+          font-weight: 800;
+          color: #0F172A;
+          line-height: 1;
+          margin-bottom: 10px;
+          letter-spacing: -0.03em;
+        }
+
+        .stat-plus {
+          color: #B91C1C;
+        }
+
+        .stat-label {
+          font-size: 13px;
+          font-weight: 600;
+          color: #64748B;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+        }
+
+        /* CTA Section */
+        .projects-cta-banner {
+          padding: 84px 48px;
+          background: #0F172A;
+          color: #FFFFFF;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .cta-backdrop-glow {
+          position: absolute;
+          top: -50%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 800px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(185, 28, 28, 0.25) 0%, transparent 70%);
+          pointer-events: none;
+        }
+
+        .cta-content {
+          max-width: 720px;
+          margin: 0 auto;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+        }
+
+        .cta-badge {
+          display: inline-block;
+          background: rgba(185, 28, 28, 0.2);
+          border: 1px solid rgba(185, 28, 28, 0.4);
+          color: #F87171;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          padding: 5px 14px;
+          border-radius: 50px;
+          margin-bottom: 20px;
+        }
+
+        .cta-content h2 {
+          font-family: var(--font-display);
+          font-size: clamp(34px, 4.5vw, 48px);
+          font-weight: 800;
+          color: #FFFFFF;
+          line-height: 1.15;
+          margin-bottom: 18px;
+          letter-spacing: -0.02em;
+        }
+
+        .cta-content p {
+          font-size: 17px;
+          color: #94A3B8;
+          margin-bottom: 34px;
+          line-height: 1.6;
+        }
+
+        .cta-button {
+          background: #B91C1C;
+          color: #FFFFFF;
+          border: none;
+          padding: 15px 38px;
+          border-radius: 50px;
+          font-family: var(--font-display);
+          font-size: 15px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 10px 24px -4px rgba(185, 28, 28, 0.5);
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .cta-button:hover {
+          background: #DC2626;
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px -4px rgba(220, 38, 38, 0.6);
+        }
+
+        /* Modal Dialog */
+        .project-modal {
+          position: fixed;
+          inset: 0;
+          background: rgba(15, 23, 42, 0.7);
+          backdrop-filter: blur(8px);
           z-index: 1000;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 40px;
-          animation: fadeIn 0.3s ease;
+          padding: 32px 20px;
+          animation: modalFadeIn 0.25s ease;
         }
 
-        @keyframes fadeIn {
+        @keyframes modalFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
 
-        .modal-content {
-          max-width: 1200px;
+        .modal-card {
+          background: #FFFFFF;
+          border-radius: 20px;
+          max-width: 1080px;
           width: 100%;
           max-height: 90vh;
-          background: rgba(15,20,24,0.95);
-          backdrop-filter: blur(10px);
-          border-radius: 2px;
           overflow: hidden;
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          border: 1px solid rgba(233,238,242,0.3);
-          animation: slideUp 0.4s ease;
+          grid-template-columns: 1.1fr 1fr;
+          box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35);
+          border: 1px solid #E2E8F0;
+          position: relative;
+          animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes slideUp {
-          from {
-            transform: translateY(50px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
+        @keyframes modalSlideUp {
+          from { transform: translateY(30px) scale(0.98); }
+          to { transform: translateY(0) scale(1); }
         }
 
-        .modal-image {
+        .modal-image-col {
           height: 100%;
+          background: #0F172A;
           overflow: hidden;
+          position: relative;
         }
 
-        .modal-image img {
+        .modal-image-col img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          display: block;
         }
 
-        .modal-info {
-          padding: 48px;
+        .modal-body {
+          padding: 44px 40px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
         }
 
-        .modal-category {
+        .modal-cat-tag {
+          align-self: flex-start;
+          background: #FEF2F2;
+          color: #B91C1C;
+          border: 1px solid #FECACA;
+          font-family: var(--font-display);
           font-size: 11px;
-          font-weight: 600;
+          font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.1em;
-          color: var(--orange);
+          padding: 4px 12px;
+          border-radius: 50px;
           margin-bottom: 16px;
         }
 
         .modal-title {
           font-family: var(--font-display);
           font-size: 32px;
-          font-weight: 600;
-          color: var(--white);
-          margin-bottom: 20px;
+          font-weight: 800;
+          color: #0F172A;
+          line-height: 1.2;
+          margin-bottom: 16px;
+          letter-spacing: -0.02em;
         }
 
-        .modal-description {
+        .modal-desc {
           font-size: 15px;
           line-height: 1.7;
-          color: var(--steel-light);
+          color: #475569;
+          margin-bottom: 28px;
+        }
+
+        .modal-specs-table {
+          background: #F8FAFC;
+          border: 1px solid #E2E8F0;
+          border-radius: 12px;
+          padding: 8px 18px;
           margin-bottom: 30px;
         }
 
-        .modal-details {
-          display: grid;
-          gap: 16px;
-          margin-bottom: 30px;
-        }
-
-        .detail-item {
+        .modal-spec-row {
           display: flex;
           justify-content: space-between;
-          padding: 12px 0;
-          border-bottom: 1px solid rgba(233,238,242,0.2);
-        }
-
-        .detail-label {
+          padding: 11px 0;
+          border-bottom: 1px solid #E2E8F0;
           font-size: 13px;
-          color: var(--steel-light);
         }
 
-        .detail-value {
-          font-size: 14px;
-          font-weight: 600;
-          color: var(--white);
+        .modal-spec-row:last-child {
+          border-bottom: none;
         }
 
-        .modal-close {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          background: rgba(233,238,242,0.2);
-          border: 1px solid rgba(233,238,242,0.3);
-          color: var(--white);
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          cursor: pointer;
-          font-size: 20px;
-          transition: all 0.3s;
+        .spec-label {
+          color: #64748B;
+          font-weight: 500;
         }
 
-        .modal-close:hover {
-          background: var(--orange);
-          transform: rotate(90deg);
-          border-color: var(--orange);
-        }
-
-        /* Stats Section - Updated with rgba(233,238,242,0.5) theme */
-        .projects-stats {
-          padding: 80px 48px;
-          background: rgba(233,238,242,0.03);
-          border-top: 1px solid rgba(233,238,242,0.15);
-          border-bottom: 1px solid rgba(233,238,242,0.15);
-        }
-
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 32px;
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .stat-item {
-          text-align: center;
-          padding: 32px;
-          background: rgba(233,238,242,0.05);
-          border: 1px solid rgba(233,238,242,0.1);
-          border-radius: 16px;
-          transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-          transform: translateY(-5px);
-          background: rgba(233,238,242,0.08);
-          border-color: rgba(233,238,242,0.5);
-        }
-
-        .stat-number {
-          font-family: var(--font-display);
-          font-size: 48px;
+        .spec-value {
+          color: #0F172A;
           font-weight: 700;
-          color: var(--orange);
-          margin-bottom: 8px;
         }
 
-        .stat-label {
-          font-size: 14px;
-          color: var(--steel-light);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .stat-plus {
-          font-size: 32px;
-        }
-
-        /* CTA Section - Updated with rgba(233,238,242,0.5) theme */
-        .projects-cta-section {
-          padding: 100px 48px;
-          text-align: center;
-          background: linear-gradient(135deg, var(--orange), #b01515);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .projects-cta-section::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: repeating-linear-gradient(45deg, rgba(233,238,242,0.05) 0px, rgba(233,238,242,0.05) 2px, transparent 2px, transparent 8px);
-          pointer-events: none;
-        }
-
-        .cta-content h2 {
-          font-family: var(--font-display);
-          font-size: 48px;
-          font-weight: 600;
-          color: var(--white);
-          margin-bottom: 20px;
-          position: relative;
-          z-index: 1;
-        }
-
-        .cta-content p {
-          font-size: 18px;
-          color: rgba(255,255,255,0.9);
-          margin-bottom: 32px;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
-          position: relative;
-          z-index: 1;
-        }
-
-        .cta-button {
-          background: var(--white);
-          color: var(--orange);
+        .modal-action-btn {
+          margin-top: auto;
+          background: #B91C1C;
+          color: #FFFFFF;
           border: none;
-          padding: 16px 40px;
+          padding: 14px 28px;
           border-radius: 50px;
           font-family: var(--font-display);
-          font-size: 16px;
-          font-weight: 600;
+          font-size: 14px;
+          font-weight: 700;
           cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          z-index: 1;
+          transition: all 0.25s ease;
+          text-align: center;
+          text-decoration: none;
+          display: block;
         }
 
-        .cta-button:hover {
+        .modal-action-btn:hover {
+          background: #991B1B;
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+          box-shadow: 0 10px 20px -4px rgba(185, 28, 28, 0.4);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-          .projects-grid {
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          }
-          
-          .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          
-          .modal-content {
-            grid-template-columns: 1fr;
-            max-height: 80vh;
-            overflow-y: auto;
-          }
+        .modal-close-btn {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          color: #0F172A;
+          font-size: 16px;
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+          transition: all 0.2s ease;
+          z-index: 10;
         }
 
-        @media (max-width: 768px) {
-          .projects-hero {
-            padding: 120px 20px 40px 20px;
-          }
-          .projects-filter,
-          .projects-grid-section,
-          .projects-stats,
-          .projects-cta-section {
-            padding: 40px 24px;
-          }
-          
-          .projects-title {
-            font-size: 36px;
-          }
-          
-          .stats-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .projects-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-          }
-          
-          .project-image-wrapper {
-            height: 160px;
-          }
-          
-          .project-info {
-            padding: 16px;
-          }
-          
-          .project-title {
-            font-size: 14px;
-            margin-bottom: 8px;
-            white-space: normal;
-            line-height: 1.3;
-          }
-          
-          .project-category {
-            top: 10px;
-            right: 10px;
-            padding: 4px 10px;
-            font-size: 9px;
-          }
-          
-          .project-meta {
-            font-size: 10px;
-            gap: 8px;
-            flex-wrap: wrap;
-          }
-          
-          .project-meta span {
-            font-size: 9px;
-          }
-          
-          .modal-info {
-            padding: 32px;
-          }
+        .modal-close-btn:hover {
+          background: #B91C1C;
+          border-color: #B91C1C;
+          color: #FFFFFF;
+          transform: rotate(90deg);
         }
 
+        /* Scroll Reveal */
         .reveal-group {
           opacity: 0;
-          transform: translateY(40px);
-          transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+          transform: translateY(30px);
+          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
         }
-
         .reveal-group.view-visible {
           opacity: 1;
           transform: translateY(0);
         }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+          .projects-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+          }
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
+          .modal-card {
+            grid-template-columns: 1fr;
+            max-height: 85vh;
+          }
+          .modal-image-col {
+            height: 240px;
+          }
+          .modal-body {
+            padding: 28px 24px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .projects-light-page {
+            padding-top: 80px;
+          }
+          .projects-hero {
+            padding: 50px 20px 40px 20px;
+          }
+          .projects-filter-bar {
+            top: 70px;
+            padding: 12px 16px;
+          }
+          .projects-grid-section {
+            padding: 32px 16px 60px 16px;
+          }
+          .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+          .project-image-wrapper {
+            height: 200px;
+          }
+          .projects-stats-strip {
+            padding: 48px 20px;
+          }
+          .stats-grid {
+            grid-template-columns: 1fr;
+          }
+          .stat-number {
+            font-size: 40px;
+          }
+          .projects-cta-banner {
+            padding: 60px 20px;
+          }
+        }
       `}</style>
 
-      <div className="projects-page">
+      <div className="projects-light-page">
         {/* Hero Section */}
         <section className="projects-hero reveal-group">
-          <div className="projects-badge">OUR PORTFOLIO</div>
-          <h1 className="projects-title">
-            Where Vision Meets
-            <br />
-            <span>Structural Excellence</span>
-          </h1>
-          <p className="projects-subtitle">
-            Get professional advice on the best roofing solutions for your home
-            or business—tailored to your budget, climate, and needs.
-          </p>
-          <button
-            className="projects-cta"
-            onClick={() =>
-              document
-                .getElementById("projects-grid")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Explore Projects
-          </button>
+          <div className="projects-hero-grid-bg" />
+          <div className="projects-hero-inner">
+            <div className="projects-badge">
+              <span className="projects-badge-dot" />
+              OUR PORTFOLIO
+            </div>
+            <h1 className="projects-title">
+              Where Vision Meets
+              <br />
+              <span className="accent-red">Structural Excellence</span>
+            </h1>
+            <p className="projects-subtitle">
+              Get professional advice on the best roofing solutions for your home
+              or business—tailored to your budget, climate, and needs.
+            </p>
+            <div className="projects-hero-actions">
+              <button
+                className="projects-cta-primary"
+                onClick={() =>
+                  document
+                    .getElementById("projects-grid")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Explore Projects ↓
+              </button>
+              <Link href="/contact" className="projects-cta-secondary" data-lead-modal="true">
+                Request a Quote →
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Filter Section */}
-        <section className="projects-filter reveal-group">
+        <section className="projects-filter-bar reveal-group">
           <div className="filter-container">
             {categories.map((cat) => (
               <button
@@ -875,17 +1067,22 @@ export default function Projects() {
                 onClick={() => setFilter(cat.id)}
               >
                 {cat.name}
-                <span className="filter-count">({cat.count})</span>
+                <span className="filter-count">{cat.count}</span>
               </button>
             ))}
           </div>
         </section>
 
         {/* Projects Grid */}
-        <section
-          id="projects-grid"
-          className="projects-grid-section reveal-group"
-        >
+        <section id="projects-grid" className="projects-grid-section reveal-group">
+          <div className="projects-count-bar">
+            <span>
+              Showing <strong>{filteredProjects.length}</strong> of{" "}
+              <strong>{projects.length}</strong> completed works
+            </span>
+            <span>Trussless Arch & Industrial Engineering</span>
+          </div>
+
           <div className="projects-grid">
             {filteredProjects.map((project, index) => (
               <div
@@ -900,22 +1097,17 @@ export default function Projects() {
                     alt={project.title}
                     className="project-image"
                   />
+                  <div className="project-category-badge">{project.category}</div>
                   <div className="project-overlay">
-                    <button
-                      className="projects-cta"
-                      style={{ padding: "10px 20px" }}
-                    >
-                      View Details →
-                    </button>
+                    <span className="project-view-btn">View Details →</span>
                   </div>
-                  <div className="project-category">{project.category}</div>
                 </div>
                 <div className="project-info">
                   <h3 className="project-title">{project.title}</h3>
-                  <div className="project-meta">
-                    <span>📍 {project.location}</span>
-                    <span>📐 {project.area}</span>
-                    <span>📅 {project.year}</span>
+                  <div className="project-meta-pills">
+                    <span className="project-meta-tag">📍 {project.location}</span>
+                    <span className="project-meta-tag">📐 {project.area}</span>
+                    <span className="project-meta-tag">📅 {project.year}</span>
                   </div>
                 </div>
               </div>
@@ -924,46 +1116,57 @@ export default function Projects() {
         </section>
 
         {/* Stats Section */}
-        <section ref={statsRef} className="projects-stats reveal-group">
-          <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-number">
-                {stats.projects}
-                <span className="stat-plus">+</span>
+        <section ref={statsRef} className="projects-stats-strip reveal-group">
+          <div className="stats-inner">
+            <div className="stats-header-tag">PROVEN TRACK RECORD</div>
+            <h2 className="stats-header-title">Engineering Milestones Across India</h2>
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-number">
+                  {stats.projects}
+                  <span className="stat-plus">+</span>
+                </div>
+                <div className="stat-label">Projects Completed</div>
               </div>
-              <div className="stat-label">Projects Completed</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">
-                {stats.clients}
-                <span className="stat-plus">+</span>
+              <div className="stat-card">
+                <div className="stat-number">
+                  {stats.clients}
+                  <span className="stat-plus">+</span>
+                </div>
+                <div className="stat-label">Happy Clients</div>
               </div>
-              <div className="stat-label">Happy Clients</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">
-                {stats.cities}
-                <span className="stat-plus">+</span>
+              <div className="stat-card">
+                <div className="stat-number">
+                  {stats.cities}
+                  <span className="stat-plus">+</span>
+                </div>
+                <div className="stat-label">Cities Served</div>
               </div>
-              <div className="stat-label">Cities Served</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">{stats.satisfaction}%</div>
-              <div className="stat-label">Client Satisfaction</div>
+              <div className="stat-card">
+                <div className="stat-number">
+                  {stats.satisfaction}
+                  <span className="stat-plus">%</span>
+                </div>
+                <div className="stat-label">Client Satisfaction</div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="projects-cta-section reveal-group">
+        <section className="projects-cta-banner reveal-group">
+          <div className="cta-backdrop-glow" />
           <div className="cta-content">
+            <span className="cta-badge">GET IN TOUCH</span>
             <h2>Ready to Start Your Project?</h2>
             <p>
               Let's discuss your roofing needs and create something
               extraordinary together.
             </p>
-            <Link href="/contact">
-              <button className="cta-button">Get in Touch →</button>
+            <Link href="/contact" style={{ textDecoration: "none" }}>
+              <button className="cta-button">
+                Get in Touch →
+              </button>
             </Link>
           </div>
         </section>
@@ -974,56 +1177,59 @@ export default function Projects() {
             className="project-modal"
             onClick={() => setSelectedProject(null)}
           >
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-image">
+            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="modal-close-btn"
+                onClick={() => setSelectedProject(null)}
+                aria-label="Close dialog"
+              >
+                ✕
+              </button>
+              <div className="modal-image-col">
                 <img
                   src={selectedProject.image?.src ?? selectedProject.image}
                   alt={selectedProject.title}
                 />
               </div>
-              <div className="modal-info">
-                <div className="modal-category">
+              <div className="modal-body">
+                <div className="modal-cat-tag">
                   {selectedProject.category.toUpperCase()}
                 </div>
                 <h2 className="modal-title">{selectedProject.title}</h2>
-                <p className="modal-description">
-                  {selectedProject.description}
-                </p>
-                <div className="modal-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Location</span>
-                    <span className="detail-value">
-                      {selectedProject.location}
-                    </span>
+                <p className="modal-desc">{selectedProject.description}</p>
+                <div className="modal-specs-table">
+                  <div className="modal-spec-row">
+                    <span className="spec-label">Location</span>
+                    <span className="spec-value">{selectedProject.location}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Project Area</span>
-                    <span className="detail-value">{selectedProject.area}</span>
+                  <div className="modal-spec-row">
+                    <span className="spec-label">Project Area</span>
+                    <span className="spec-value">{selectedProject.area}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Completion Year</span>
-                    <span className="detail-value">{selectedProject.year}</span>
+                  <div className="modal-spec-row">
+                    <span className="spec-label">Completion Year</span>
+                    <span className="spec-value">{selectedProject.year}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Roofing Type</span>
-                    <span className="detail-value">
-                      Trussless K-Span System
-                    </span>
+                  <div className="modal-spec-row">
+                    <span className="spec-label">Roofing Type</span>
+                    <span className="spec-value">Trussless K-Span System</span>
                   </div>
                 </div>
-                <button className="projects-cta" style={{ width: "100%" }}>
+                <Link
+                  href="/contact"
+                  className="modal-action-btn"
+                  data-lead-modal="true"
+                  onClick={() => setSelectedProject(null)}
+                >
                   Request Similar Project →
-                </button>
+                </Link>
               </div>
-              <button
-                className="modal-close"
-                onClick={() => setSelectedProject(null)}
-              >
-                ✕
-              </button>
             </div>
           </div>
         )}
+
+        {/* Global Contact Footer */}
+        <ContactFooter />
       </div>
     </>
   );

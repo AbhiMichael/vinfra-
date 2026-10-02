@@ -1,4 +1,5 @@
 import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/global/Footer";
 
 export const metadata = {
   title: "Trussless Roofing in India | Vinfra Projects",
@@ -101,6 +102,7 @@ export default function TrusslessRoofingPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

@@ -25,6 +25,7 @@ export const metadata = {
 };
 
 import WhatsAppChat from "../components/WhatsAppChat";
+import { LeadModalProvider } from "../context/LeadModalContext";
 
 export default function RootLayout({ children }) {
   return (
@@ -32,7 +33,9 @@ export default function RootLayout({ children }) {
       <head>
       </head>
       <body>
-        {children}
+        <LeadModalProvider>
+          {children}
+        </LeadModalProvider>
         <WhatsAppChat />
       </body>
     </html>

@@ -86,9 +86,17 @@ export default function HeroSequence() {
         <div className="hero-overlay-ui">
           <div className="hero-content">
             <div className="hero-top-row">
-              <div className="hero-eyebrow">
-                Engineering structural steel &amp; advanced curvature enclosures
-                across global landscapes.
+              <div className="hero-quote-card">
+                <div className="hero-quote-badge" aria-hidden="true">
+                  <svg width="20" height="16" viewBox="0 0 24 18" fill="currentColor">
+                    <path d="M0 10.5C0 4.7 3.8 0.5 9 0l1 2.2C6.8 3.1 5.3 5.4 5.3 7.5H9v10.5H0V10.5zm14 0c0-5.8 3.8-10 9-10.5l1 2.2c-3.2 0.9-4.7 3.2-4.7 5.3H23v10.5H14V10.5z" />
+                  </svg>
+                </div>
+                <div className="hero-quote-text">
+                  Clear <span className="text-red">Spans</span> up to <span className="text-red">38 meters</span>
+                  <br />
+                  gives you unobstructed space
+                </div>
               </div>
             </div>
             <div className="premium-stats-wrapper">
